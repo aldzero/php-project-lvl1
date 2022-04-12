@@ -1,6 +1,10 @@
 #!/usr/bin/env php
 <?php
 
-namespace bin;
+declare(strict_types=1);
 
-print('Welcome to the Brain Games!');
+require_once realpath('vendor/autoload.php');
+
+use function Brain\Games\Cli\greetUser;
+
+greetUser();

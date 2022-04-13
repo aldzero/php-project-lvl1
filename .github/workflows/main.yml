@@ -1,0 +1,12 @@
+name: main
+on: push
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - name: init
+        uses: actions/checkout@v1
+      - name: composer
+        run: composer install
+      - name: phpcs
+        run: composer exec --verbose phpcs -- --standard=PSR12 src bin

@@ -1,0 +1,68 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use function cli\line;
+use function cli\prompt;
+
+require_once realpath('vendor/autoload.php');
+
+const NUM_OF_QUESTIONS = 3;
+const EVEN_CHECK = [
+    0 => 'yes',
+    1 => 'no'
+];
+const ALLOWED_ANSWERS = ['yes', 'no'];
+
+play();
+
+function play(): void
+{
+    line('Welcome to the Brain Game!');
+    $name = prompt('May I have your name?');
+    line("Hello, %s!", $name);
+    line('Answer "yes" if the number is even, otherwise answer "no".');
+
+    for ($i = 0; $i < NUM_OF_QUESTIONS; $i++) {
+        $questionNum = getRandomNumber();
+
+        line('Question: ' . $questionNum);
+        $userAnswer = getUserAnswer();
+        $correctAnswer = getCorrectAnswer($questionNum);
+
+        if ($userAnswer !== $correctAnswer) {
+            line("'$userAnswer' is wrong answer ;(. Correct answer was '$correctAnswer'.");
+            line("Let's try again, $name!");
+            return;
+        }
+
+        line('Correct!');
+    }
+    line("Congratulations, $name!");
+}
+
+function getRandomNumber(): int
+{
+    return rand(1, 100);
+}
+
+function getUserAnswer(): string
+{
+    while (true) {
+        $answer = prompt('Your answer');
+
+        if (in_array($answer, ALLOWED_ANSWERS)) {
+            return $answer;
+        }
+
+        line('Incorrect value, try again! Allowed values: "yes" or "no"');
+    }
+}
+
+function getCorrectAnswer(int $question): string
+{
+    $remainder = $question % 2;
+
+    return EVEN_CHECK[$remainder];
+}

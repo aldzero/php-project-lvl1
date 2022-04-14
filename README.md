@@ -1,4 +1,4 @@
-### Asciinema
+### Asciinema:
 [brain-even](https://asciinema.org/a/ZozfmcVoDsxI6AtODGiyeCmtD)
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/aldzero/php-project-lvl1/workflows/hexlet-check/badge.svg)](https://github.com/aldzero/php-project-lvl1/actions)

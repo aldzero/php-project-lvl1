@@ -1,0 +1,54 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+require_once realpath('vendor/autoload.php');
+
+use function Brain\Games\Engine\getIntegerAnswer;
+use function Brain\Games\Engine\getRandomAction;
+use function Brain\Games\Engine\getRandomNumber;
+use function Brain\Games\Engine\getResult;
+use function Brain\Games\Engine\greetUser;
+use function cli\line;
+use const Brain\Games\Engine\NUM_OF_QUESTIONS;
+
+play();
+
+function play(): void
+{
+    $name = greetUser();
+
+    for ($i = 0; $i < NUM_OF_QUESTIONS; $i++) {
+        $firstNumber = getRandomNumber();
+        $secondNumber = getRandomNumber();
+        $action = getRandomAction();
+
+        line('Question: ' . "$firstNumber $action $secondNumber");
+
+        $userAnswer = getIntegerAnswer();
+
+        $correctAnswer = getCorrectAnswer($firstNumber, $secondNumber, $action);
+
+        $isCorrect = getResult($name, $userAnswer, $correctAnswer);
+
+        if (!$isCorrect) {
+            return;
+        }
+    }
+
+    line("Congratulations, $name!");
+}
+
+function getCorrectAnswer($firstNumber, $secondNumber, $action): int
+{
+    if ($action === '+') {
+        return $firstNumber + $secondNumber;
+    }
+
+    if ($action === '-') {
+        return $firstNumber - $secondNumber;
+    }
+
+    return $firstNumber * $secondNumber;
+}

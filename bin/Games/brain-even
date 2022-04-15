@@ -1,0 +1,48 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+require_once realpath('vendor/autoload.php');
+
+use function Brain\Games\Engine\getRandomNumber;
+use function Brain\Games\Engine\getResult;
+use function Brain\Games\Engine\getYesNoAnswer;
+use function Brain\Games\Engine\greetUser;
+use function cli\line;
+use const Brain\Games\Engine\NUM_OF_QUESTIONS;
+
+const EVEN = 0;
+
+play();
+
+function play(): void
+{
+    $name = greetUser();
+
+    for ($i = 0; $i < NUM_OF_QUESTIONS; $i++) {
+        $questionNum = getRandomNumber();
+
+        line('Question: ' . $questionNum);
+        $userAnswer = getYesNoAnswer();
+        $correctAnswer = getCorrectAnswer($questionNum);
+
+        $isCorrect = getResult($name, $userAnswer, $correctAnswer);
+
+        if (!$isCorrect) {
+            return;
+        }
+    }
+    line("Congratulations, $name!");
+}
+
+function getCorrectAnswer(int $question): string
+{
+    $remainder = $question % 2;
+
+    if ($remainder === EVEN) {
+        return 'yes';
+    }
+
+    return 'no';
+}

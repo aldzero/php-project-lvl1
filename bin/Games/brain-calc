@@ -19,7 +19,7 @@ function play(): void
 {
     $name = greetUser();
 
-    for ($i = 0; $i < NUM_OF_QUESTIONS; $i++) {
+    for ($question = 0; $question < NUM_OF_QUESTIONS; $question++) {
         $firstNumber = getRandomNumber();
         $secondNumber = getRandomNumber();
         $action = getRandomAction();

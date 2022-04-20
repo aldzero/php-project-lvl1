@@ -20,7 +20,8 @@
     "bin": [
         "bin/Games/brain-games",
         "bin/Games/brain-even",
-        "bin/Games/brain-calc"
+        "bin/Games/brain-calc",
+        "bin/Games/brain-gcd"
     ],
     "require-dev": {
         "squizlabs/php_codesniffer": "3.*"

@@ -1,0 +1,58 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use function Brain\Games\Engine\getIntegerAnswer;
+use function Brain\Games\Engine\getRandomPairNumbers;
+use function Brain\Games\Engine\getResult;
+use function Brain\Games\Engine\greetUser;
+use function cli\line;
+use const Brain\Games\Engine\NUM_OF_QUESTIONS;
+
+require_once realpath('vendor/autoload.php');
+
+const FIRST_NUM_INDEX = 0;
+const SECOND_NUM_INDEX = 1;
+
+play();
+
+function play()
+{
+    $name = greetUser();
+
+    for ($question = 0; $question < NUM_OF_QUESTIONS; $question++) {
+        $questionNums = getRandomPairNumbers();
+
+        line('Question: ' . implode(' ', $questionNums));
+        $userAnswer = getIntegerAnswer();
+        $correctAnswer = getCorrectAnswer($questionNums);
+
+        $isCorrect = getResult($name, $userAnswer, $correctAnswer);
+
+        if (!$isCorrect) {
+            return;
+        }
+        line("Congratulations, $name!");
+    }
+}
+
+function getCorrectAnswer(array $integers)
+{
+    $firstNum = $integers[FIRST_NUM_INDEX];
+    $secondNum = $integers[SECOND_NUM_INDEX];
+
+    if ($firstNum === 0) {
+        return abs($secondNum);
+    }
+    if ($secondNum === 0) {
+        return abs($firstNum);
+    }
+    while (true) {
+        if (($firstNum %= $secondNum) === 0) {
+            return abs($secondNum);
+        } elseif (($secondNum %= $firstNum) === 0) {
+            return abs($firstNum);
+        }
+    }
+}

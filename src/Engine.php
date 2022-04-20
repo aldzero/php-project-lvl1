@@ -70,3 +70,8 @@ function getYesNoAnswer(): string
         line('Incorrect value, try again! Allowed values: "yes" or "no"');
     }
 }
+
+function getRandomPairNumbers(): array
+{
+    return [getRandomNumber(), getRandomNumber()];
+}

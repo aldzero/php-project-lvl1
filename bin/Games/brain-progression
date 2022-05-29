@@ -1,0 +1,56 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use function Brain\Games\Engine\getIntegerAnswer;
+use function Brain\Games\Engine\getRandomArray;
+use function Brain\Games\Engine\getRandomNumber;
+use function Brain\Games\Engine\getResult;
+use function Brain\Games\Engine\greetUser;
+use function cli\line;
+use const Brain\Games\Engine\NUM_OF_QUESTIONS;
+
+require_once realpath('vendor/autoload.php');
+
+play();
+
+function play()
+{
+    $name = greetUser();
+
+    for ($question = 0; $question < NUM_OF_QUESTIONS; $question++) {
+        $array = getRandomArray(10);
+        $position = getRandomNumber(0, count($array) - 1);
+        $questionArray = buildQuestion($array, $position);
+
+        line('Question:' . $questionArray);
+
+        $userAnswer = getIntegerAnswer();
+
+        $correctAnswer = $array[$position];
+
+        $isCorrect = getResult($name, $userAnswer, $correctAnswer);
+
+        if (!$isCorrect) {
+            return;
+        }
+    }
+
+    line("Congratulations, $name!");
+}
+
+function buildQuestion(array $array, int $position): string
+{
+    $questionArray = '';
+
+    foreach ($array as $value) {
+        if ($value === $array[$position]) {
+            $questionArray .= ' ..';
+            continue;
+        }
+        $questionArray .= " $value";
+    }
+
+    return $questionArray;
+}

@@ -75,3 +75,21 @@ function getRandomPairNumbers(): array
 {
     return [getRandomNumber(), getRandomNumber()];
 }
+
+function getRandomArray(int $maxLength): array
+{
+    $length = getRandomNumber(5, $maxLength);
+    $firstElement = getRandomNumber(1, 100);
+    $step = getRandomNumber(0);
+
+    $array = [];
+
+    $array[] = $firstElement;
+    for ($i = 1; $i < $length; $i++) {
+        $firstElement += $step;
+
+        $array[] = $firstElement;
+    }
+
+    return $array;
+}

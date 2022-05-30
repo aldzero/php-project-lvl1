@@ -18,6 +18,7 @@ play();
 function play()
 {
     $name = greetUser();
+    line('What number is missing in the progression?');
 
     for ($question = 0; $question < NUM_OF_QUESTIONS; $question++) {
         $array = getRandomArray(10);

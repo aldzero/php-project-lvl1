@@ -12,7 +12,6 @@ function greetUser(): string
     line('Welcome to the Brain Game!');
     $name = prompt('May I have your name?');
     line("Hello, %s!", $name);
-    line('Answer "yes" if the number is even, otherwise answer "no".');
 
     return $name;
 }
@@ -92,4 +91,15 @@ function getRandomArray(int $maxLength): array
     }
 
     return $array;
+}
+
+function isPrime(int $number): bool
+{
+    for ($i = 2; $i <= $number - 1; $i++) {
+        if ($number % $i == 0) {
+            return false;
+        }
+    }
+
+    return true;
 }

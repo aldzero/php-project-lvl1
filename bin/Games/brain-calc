@@ -18,6 +18,7 @@ play();
 function play(): void
 {
     $name = greetUser();
+    line('What is the result of the expression?');
 
     for ($question = 0; $question < NUM_OF_QUESTIONS; $question++) {
         $firstNumber = getRandomNumber();

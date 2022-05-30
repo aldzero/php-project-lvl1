@@ -3,28 +3,28 @@
 
 declare(strict_types=1);
 
-require_once realpath('vendor/autoload.php');
-
 use function Brain\Games\Engine\getRandomNumber;
 use function Brain\Games\Engine\getResult;
 use function Brain\Games\Engine\getYesNoAnswer;
 use function Brain\Games\Engine\greetUser;
+use function Brain\Games\Engine\isPrime;
 use function cli\line;
 use const Brain\Games\Engine\NUM_OF_QUESTIONS;
 
-const EVEN = 0;
+require_once realpath('vendor/autoload.php');
 
 play();
 
 function play(): void
 {
     $name = greetUser();
-    line('Answer "yes" if the number is even, otherwise answer "no".');
+    line('Answer "yes" if given number is prime. Otherwise answer "no".');
 
     for ($question = 0; $question < NUM_OF_QUESTIONS; $question++) {
         $questionNum = getRandomNumber();
 
         line('Question: ' . $questionNum);
+
         $userAnswer = getYesNoAnswer();
         $correctAnswer = getCorrectAnswer($questionNum);
 
@@ -37,11 +37,11 @@ function play(): void
     line("Congratulations, $name!");
 }
 
-function getCorrectAnswer(int $question): string
+function getCorrectAnswer(int $questionNum): string
 {
-    $remainder = $question % 2;
+    $result = isPrime($questionNum);
 
-    if ($remainder === EVEN) {
+    if ($result) {
         return 'yes';
     }
 
